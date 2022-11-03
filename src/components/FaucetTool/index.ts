@@ -9,7 +9,6 @@ export class FaucetTool extends LitElement {
         .container {
             display: flex;
             flex-direction: column;
-            
         }
 
         .faucet-input-container {
