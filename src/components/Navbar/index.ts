@@ -8,11 +8,15 @@ export class Navbar extends LitElement {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     static styles = css`
         .navbar-container {
+            position: fixed;
+            height: 60px;
+            width: 100vw;
+            box-sizing: border-box;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 5px;
             border-bottom: 1px solid gray;
+            background: white;
         }
     `;
 
