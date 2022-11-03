@@ -1,4 +1,4 @@
-import { css, nothing } from 'lit';
+import { css } from 'lit';
 import { customElement, html, LitElement, property } from 'lit-element';
 
 @customElement('swivel-button')
@@ -27,17 +27,29 @@ export class SwivelButton extends LitElement {
         .full-width {
             width: 100%;
         }
+
+        .loader {
+            width: 18px;
+        }
     `;
 
     @property({ type: String }) text = 'Swivel Button'; 
 
     @property({ type: Boolean }) fullWidth = false;
+
+    @property({ type: Boolean }) disabled = false;
+
+    @property({ type: Boolean }) loading = false;
     
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
     render () {
         return html`
-            <button class="${ this.fullWidth ? 'full-width' : nothing }">
-                ${ this.text }
+            <button 
+                class="${ this.fullWidth ? 'full-width' : '' } ${ this.disabled ? 'disabled' : '' }">
+                ${ this.loading 
+        ? html`<image class="loader" src="https://media.tenor.com/wpSo-8CrXqUAAAAi/loading-loading-forever.gif" />`
+        : html`${ this.text }` 
+}    
             </button>
         `;
     }
