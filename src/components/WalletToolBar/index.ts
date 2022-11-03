@@ -34,16 +34,27 @@ export class WalletToolBar extends LitElement {
             padding: 5px;
             border-radius: 0px 4px 4px 0px;
         }
+
+        .address {
+            cursor: pointer;
+        }
     `;
+
+    handleCopyAddress = async (): Promise<void> => {
+        const address = this.wallet.state?.address;
+        if (!address) return;
+        // eslint-disable-next-line @typescript-eslint/no-floating-promises
+        await navigator.clipboard.writeText(address);
+    };
 
     walletAddress = (): TemplateResult => {
         const formattedAddress = formatWalletAddress(this.wallet.state?.address);
-        return html`<div>${ formattedAddress }</div>`;
+        return html`<div class="address" @click=${ this.handleCopyAddress }>${ formattedAddress }</div>`;
     };
 
     walletBalance = (balance: number): TemplateResult => {
         const formattedBalance = formatBalance(balance);
-        return html`<div>${ formattedBalance }</div>`;
+        return html`${ formattedBalance }`;
     };
 
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types

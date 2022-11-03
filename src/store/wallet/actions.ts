@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ethers } from 'ethers';
+import ERC20ABI from '../../abi/erc20.abi';
 import { Network } from '../../constants';
 import { IWallet } from './types';
 
@@ -20,12 +21,16 @@ const connectWallet = async (): Promise<IWallet> => {
         const address = await signer.getAddress();
         const rawBalance = await signer.getBalance();
         const balance = ethers.utils.formatEther(rawBalance);
-        console.log(balance);
+        
+        const DAI = new ethers.Contract(Network.address.DAI, ERC20ABI, provider);
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
+        const DAIRawBalance = await DAI.balanceOf(address);
+        const DAIBalance = ethers.utils.formatEther(DAIRawBalance);
         return {
             connected: true,
             address,
-            ethAmount: 10,
-            daiAmount: 10,
+            ethAmount: Number(balance),
+            daiAmount: Number(DAIBalance),
         };
     } else {
         alert('Please Install MetaMask');
