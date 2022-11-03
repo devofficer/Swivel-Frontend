@@ -17,8 +17,8 @@ const provider = new ethers.providers.Web3Provider(window.ethereum);
 
 const connectWallet = async (): Promise<IWallet> => {
     if (window.ethereum) {
-        await provider.send('eth_requestAccounts', []);
         await provider.send('wallet_switchEthereumChain', [{ chainId: Network.chainId }]);
+        await provider.send('eth_requestAccounts', []);
         const signer = provider.getSigner();
         const address = await signer.getAddress();
         const rawBalance = await signer.getBalance();

@@ -46,6 +46,11 @@ export class FaucetTool extends LitElement {
 
     handleFaucet = (): void => {
         const amount = Number(this._input.value);
+        if (!this.wallet.state?.connected) {
+            alert('Please connect your MetaMask');
+            return;
+        }
+
         if (amount <= 0) {
             alert('Please input valid amount');
             return;
@@ -55,13 +60,20 @@ export class FaucetTool extends LitElement {
 
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
     render () {
+        console.log(this.wallet.status == 'unconnected');
         return html`
             <div class="container">
                 <div class="faucet-input-container">
                     <input type="text" placeholder="Amount" />
                     <span class="faucet-input-label">DAI</span>
                 </div>
-                <swivel-button fullWidth text="Faucet" @click=${ this.handleFaucet }></swivel-button>
+                <swivel-button 
+                    fullWidth 
+                    disabled="${ this.wallet.status == 'connected' ? 'false' : 'true' }"
+                    loading="${ this.wallet.status == 'faucetPending' ? 'true' : 'false' }"
+                    text="Faucet" 
+                    @click=${ this.handleFaucet }
+                />
             </div>
         `;
     }

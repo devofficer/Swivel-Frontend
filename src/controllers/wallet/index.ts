@@ -14,6 +14,10 @@ export default class WalletController implements ReactiveController {
         (this.host = host).addController(this);
     }
 
+    get status () {
+        return this._walletStore.service.getSnapshot().value;
+    }
+
     get state () {
         return this._walletStore.service.getSnapshot().context.wallet;
     }

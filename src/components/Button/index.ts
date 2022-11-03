@@ -31,22 +31,26 @@ export class SwivelButton extends LitElement {
         .loader {
             width: 18px;
         }
+
+        .disabled {
+            background: gray !important;
+        }
     `;
 
     @property({ type: String }) text = 'Swivel Button'; 
 
     @property({ type: Boolean }) fullWidth = false;
 
-    @property({ type: Boolean }) disabled = false;
+    @property({ type: String }) disabled = 'false';
 
-    @property({ type: Boolean }) loading = false;
+    @property({ type: String }) loading = 'false';
     
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
     render () {
         return html`
             <button 
-                class="${ this.fullWidth ? 'full-width' : '' } ${ this.disabled ? 'disabled' : '' }">
-                ${ this.loading 
+                class="${ this.fullWidth ? 'full-width' : '' } ${ this.disabled == 'true' ? 'disabled' : '' }">
+                ${ this.loading == 'true'
         ? html`<image class="loader" src="https://media.tenor.com/wpSo-8CrXqUAAAAi/loading-loading-forever.gif" />`
         : html`${ this.text }` 
 }    

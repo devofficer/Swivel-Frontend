@@ -51,7 +51,7 @@ const walletMachine = createMachine<WalletContext, WalletEvent, WalletTypeState>
                     id: 'faucet-pending',
                     src: (context, event) => async () => faucetDAI(event),
                     onDone: {
-                        target: 'faucetCompleted',
+                        target: 'connected',
                         actions: assign({ wallet: (context, event) => {
                             if (!context.wallet) return context.wallet;
                             const updatedWallet = context.wallet;
