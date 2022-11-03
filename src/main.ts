@@ -7,7 +7,7 @@
 
 import { customElement, html, LitElement } from 'lit-element';
 import './components/Navbar';
-import './components/Sidebar';
+import './components/Viewport';
 
 @customElement('swivel-app')
 export class App extends LitElement {
@@ -15,7 +15,7 @@ export class App extends LitElement {
     render () {
         return html`
             <swivel-navbar></swivel-navbar>
-            <swivel-sidebar></swivel-sidebar>
+            <swivel-viewport></swivel-viewport>
         `;
     }
 }

@@ -3,7 +3,7 @@ import { customElement, html, LitElement } from 'lit-element';
 import '../FaucetTool';
 
 @customElement('swivel-sidebar')
-export class ConnectWallet extends LitElement {
+export class SideBar extends LitElement {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     static styles = css`
         .sidebar {
@@ -12,7 +12,6 @@ export class ConnectWallet extends LitElement {
             justify-content: center;
             padding: 5px;
             position: fixed;
-            top: 60px;
             height: calc(100vh - 60px);
             border-right: 1px solid gray;
             background: #eeeeee;

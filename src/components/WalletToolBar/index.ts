@@ -3,7 +3,7 @@ import { customElement, html, LitElement } from 'lit-element';
 import '../WalletConnect';
 
 @customElement('swivel-wallet-toolbar')
-export class ConnectWallet extends LitElement {
+export class WalletToolBar extends LitElement {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     static styles = css`
         .container {

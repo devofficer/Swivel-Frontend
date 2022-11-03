@@ -1,12 +1,15 @@
 import { css } from 'lit';
 import { customElement, html, LitElement } from 'lit-element';
+import '../Button';
 
 @customElement('swivel-faucet-tool')
-export class ConnectWallet extends LitElement {
+export class FaucetTool extends LitElement {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     static styles = css`
         .container {
-            width: 100%;
+            display: flex;
+            flex-direction: column;
+            
         }
 
         .faucet-input-container {
@@ -35,26 +38,6 @@ export class ConnectWallet extends LitElement {
             line-height: 30px;
             border-radius: 4px;
         }
-
-        button {
-            width: 100%;
-            color: white;
-            outline: none;
-            padding: 10px;
-            cursor: pointer;
-            font-size: 16px;
-            background: #1a73e8;
-            border-radius: 4px;
-            border: 1px solid transparent;
-        }
-
-        button:hover {
-            background: #4285f4;
-        }
-
-        button:active {
-            background: #5094ed;
-        }
     `;
 
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -65,7 +48,7 @@ export class ConnectWallet extends LitElement {
                     <input type="text" placeholder="Amount" />
                     <span class="faucet-input-label">DAI</span>
                 </div>
-                <button>Faucet</button>
+                <swivel-button text="Faucet" fullWidth></swivel-button>
             </div>
         `;
     }
