@@ -35,6 +35,10 @@ export class SwivelButton extends LitElement {
     
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
     render () {
-        return html`<button class="${ this.fullWidth ? 'full-width' : nothing }">${ this.text }</button>`;
+        return html`
+            <button class="${ this.fullWidth ? 'full-width' : nothing }">
+                ${ this.text }
+            </button>
+        `;
     }
 }
