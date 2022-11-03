@@ -8,7 +8,10 @@
 import { customElement, html, LitElement } from 'lit-element';
 import './components/Navbar';
 import './components/Viewport';
+import { WalletStore } from './store';
 
+console.log(WalletStore.walletService);
+console.log(WalletStore.walletMachine);
 @customElement('swivel-app')
 export class App extends LitElement {
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types

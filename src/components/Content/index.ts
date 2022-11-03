@@ -1,5 +1,5 @@
 import { css } from 'lit';
-import { customElement, html, LitElement, property } from 'lit-element';
+import { customElement, html, LitElement } from 'lit-element';
 import '../Button';
 import '../HistoryItem';
 
@@ -21,8 +21,6 @@ export class Content extends LitElement {
         }
     `;
 
-    @property() items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
     render () {
         return html`
@@ -31,8 +29,6 @@ export class Content extends LitElement {
                     <swivel-button text="Refresh"></swivel-button>
                 </div>
                 <div class="history-content">
-                    ${ this.items.map((item, index) => 
-        html`<swivel-history-item amount=${ index }></swivel-history-item>`) }
                 </div>
             </div>
         `;
