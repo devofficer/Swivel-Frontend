@@ -1,4 +1,5 @@
-import { createMachine, interpret } from 'xstate';
+import { assign, createMachine, interpret } from 'xstate';
+import { connectWallet } from './actions';
 import { WalletContext, WalletEvent, WalletTypeState } from './types';
 
 const initialValue = 'unconnected';
@@ -24,20 +25,30 @@ const walletMachine = createMachine<WalletContext, WalletEvent, WalletTypeState>
                 },
             },
             connecting: {
-                            
+                invoke: {
+                    id: 'connect-wallet',
+                    src: (context, event) => connectWallet,
+                    onDone: {
+                        target: 'connected',
+                        // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+                        actions: assign({ wallet: (context, event) => event.data }),
+                    },
+                },        
             },
             connected: {
 
             },
         },
     },
-    {
-        actions: {
-
-        },
-    },
+    // {
+    //     actions: {
+    //         onConnected: (context, event) => {
+    //             console.log(event.data);
+    //         }
+    //     },
+    // },
 );
 
-const walletService = interpret(walletMachine);
+const walletService = interpret(walletMachine).start();
 
 export { walletMachine, walletService };

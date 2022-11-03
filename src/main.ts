@@ -8,7 +8,7 @@
 import { customElement, html, LitElement } from 'lit-element';
 import './components/Navbar';
 import './components/Viewport';
-import AppController from './controllers/app';
+import AppController from './controllers/wallet';
 
 @customElement('swivel-app')
 export class App extends LitElement {
@@ -17,7 +17,6 @@ export class App extends LitElement {
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
     render () {
         return html`
-            ${ this.app.walletInfo?.ethAmount }
             <swivel-navbar></swivel-navbar>
             <swivel-viewport></swivel-viewport>
         `;
