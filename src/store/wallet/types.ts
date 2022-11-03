@@ -6,10 +6,10 @@ interface IWallet {
 }
 
 interface WalletContext {
-    wallet?: IWallet;
+    wallet: IWallet;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    history?: any[]; 
-    error?: string;
+    history: any[]; 
+    error: string;
 }
 
 type WalletEvent =

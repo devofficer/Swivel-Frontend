@@ -71,7 +71,7 @@ export class Content extends LitElement {
                 </div>
                 <div class='line'>
                     <span class="label">Etherscan:</span>
-                    <span class="value"><a>${ this.etherscan }</a></span>
+                    <span class="value"><a href="https://goerli.etherscan.io/tx/${ this.etherscan }">${ this.etherscan }</a></span>
                 </div>
             </div>
         `;

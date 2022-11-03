@@ -14,6 +14,8 @@ const initialContext: WalletContext = {
         ethAmount: 0,
         daiAmount: 0,
     },
+    history: [],
+    error: '',
 };
 
 const walletMachine = createMachine<WalletContext, WalletEvent, WalletTypeState>(
@@ -70,11 +72,9 @@ const walletMachine = createMachine<WalletContext, WalletEvent, WalletTypeState>
                     src: (context, event) => async () => fetchTransactions(event, context.wallet?.address),
                     onDone: {
                         target: 'connected',
-                        actions: assign({ wallet: (context, event) => {
-                            if (!context.wallet) return context.wallet;
-                            const updatedWallet = context.wallet;
-                            updatedWallet.daiAmount = event.data.daiAmount;
-                            return updatedWallet;
+                        actions: assign({ history: (context, event) => {
+                            if (!context.history) return context.history;
+                            return event.data;
                         } }),
                     },
                 },

@@ -72,8 +72,8 @@ const faucetDAI = async (event: WalletEvent): Promise<{daiAmount: number}> => {
 };
 
 const fetchTransactions = async (event: WalletEvent, address: string | undefined): Promise<any[]> => {
-    console.log('transactions-start');
-    console.log(event);
+    console.log(address);
+
     if (!address)
         return [];
 
@@ -85,10 +85,13 @@ const fetchTransactions = async (event: WalletEvent, address: string | undefined
             page: 1,
             offset: 10,
             sort: 'desc',
+            apikey: Network.apiKey,
         },
     });
     const result = response.data.result;
-    console.log(result);
+    if (response.data.status == '0')
+        return [];
+        
     // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return result;
 };

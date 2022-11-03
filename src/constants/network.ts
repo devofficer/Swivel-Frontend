@@ -4,5 +4,6 @@ const address = {
     DAI: '0xdc31ee1784292379fbb2964b3b9c4124d8f89c60',
 };
 const api = 'https://api-goerli.etherscan.io/api';
+const apiKey = '2VMZFW9CPV1P9TDAF3Z7AJD2TR5RJPWDD7';
 
-export { chainId, address, api };
+export { chainId, address, api, apiKey };
