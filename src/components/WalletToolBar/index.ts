@@ -1,27 +1,29 @@
 import { css } from 'lit';
 import { customElement, html, LitElement } from 'lit-element';
-import '../Logo';
-import '../WalletToolBar';
+import '../WalletConnect';
 
-@customElement('swivel-navbar')
-export class Navbar extends LitElement {
+@customElement('swivel-wallet-toolbar')
+export class ConnectWallet extends LitElement {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     static styles = css`
-        .navbar-container {
+        .container {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            padding: 5px;
-            border-bottom: 1px solid gray;
+        }
+
+        .container > * {
+            margin: 0px 5px;
         }
     `;
 
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
     render () {
         return html`
-            <div class="navbar-container">
-                <swivel-logo></swivel-logo>
-                <swivel-wallet-toolbar></swivel-wallet-toolbar>
+            <div class="container">
+                <div>DAI Amount</div>
+                <div>ETH Amount</div>
+                <div>Walellet Address</div>
+                <swivel-wallet-connect></swivel-wallet-connect>
             </div>
         `;
     }

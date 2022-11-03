@@ -1,7 +1,7 @@
 import { css } from 'lit';
 import { customElement, html, LitElement } from 'lit-element';
 
-@customElement('swivel-connect-wallet')
+@customElement('swivel-wallet-connect')
 export class ConnectWallet extends LitElement {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     static styles = css`
