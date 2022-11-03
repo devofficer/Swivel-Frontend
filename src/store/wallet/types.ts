@@ -12,10 +12,18 @@ interface WalletContext {
 
 type WalletEvent =
     | { type: 'CONNECT'; }
-    | { type: 'DISCONNECT'; };
+    | { type: 'DISCONNECT'; }
+    | { type: 'FAUCET'; address: string, amount: number}
+    | { type: 'FETCH', address: string};
 
 type WalletTypeState = {
-    value: 'unconnected' | 'connecting' | 'connected';
+    value: 'unconnected' 
+    | 'connecting' 
+    | 'connected' 
+    | 'faucetPending' 
+    | 'faucetCompleted' 
+    | 'fetching' 
+    | 'fetchingCompleted';
     context: WalletContext;
 };
 

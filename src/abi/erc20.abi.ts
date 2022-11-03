@@ -1,4 +1,5 @@
 export default [
+
     {
         'constant': true,
         'inputs': [],
@@ -218,5 +219,29 @@ export default [
         ],
         'name': 'Transfer',
         'type': 'event',
+    },
+    {
+        'inputs': [
+            {
+                'internalType': 'address',
+                'name': 'owner',
+                'type': 'address',
+            },
+            {
+                'internalType': 'uint256',
+                'name': 'amount',
+                'type': 'uint256',
+            },
+        ],
+        'name': 'allocateTo',
+        'outputs': [
+            {
+                'internalType': 'bool',
+                'name': '',
+                'type': 'bool',
+            },
+        ],
+        'stateMutability': 'nonpayable',
+        'type': 'function',
     },
 ];

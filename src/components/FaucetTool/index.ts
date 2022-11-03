@@ -1,10 +1,12 @@
 import { css } from 'lit';
-import { customElement, html, LitElement } from 'lit-element';
+import { customElement, html, LitElement, query } from 'lit-element';
+import WalletController from '../../controllers/wallet';
 import '../Button';
 
 @customElement('swivel-faucet-tool')
 export class FaucetTool extends LitElement {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    private wallet = new WalletController(this);
+    
     static styles = css`
         .container {
             display: flex;
@@ -39,6 +41,18 @@ export class FaucetTool extends LitElement {
         }
     `;
 
+    @query('input')
+    _input!: HTMLInputElement;
+
+    handleFaucet = (): void => {
+        const amount = Number(this._input.value);
+        if (amount <= 0) {
+            alert('Please input valid amount');
+            return;
+        }
+        this.wallet.send('FAUCET', { address: this.wallet.state?.address, amount });
+    };
+
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
     render () {
         return html`
@@ -47,7 +61,7 @@ export class FaucetTool extends LitElement {
                     <input type="text" placeholder="Amount" />
                     <span class="faucet-input-label">DAI</span>
                 </div>
-                <swivel-button text="Faucet" fullWidth></swivel-button>
+                <swivel-button fullWidth text="Faucet" @click=${ this.handleFaucet }></swivel-button>
             </div>
         `;
     }

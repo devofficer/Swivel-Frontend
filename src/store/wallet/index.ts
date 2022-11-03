@@ -1,5 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-floating-promises */
+/* eslint-disable @typescript-eslint/no-unsafe-return */
 import { assign, createMachine, interpret } from 'xstate';
-import { connectWallet } from './actions';
+import { connectWallet, faucetDAI } from './actions';
 import { WalletContext, WalletEvent, WalletTypeState } from './types';
 
 const initialValue = 'unconnected';
@@ -31,13 +35,37 @@ const walletMachine = createMachine<WalletContext, WalletEvent, WalletTypeState>
                     src: () => connectWallet,
                     onDone: {
                         target: 'connected',
-                        // eslint-disable-next-line @typescript-eslint/no-unsafe-return
                         actions: assign({ wallet: (context, event) => event.data }),
                     },
                 },        
             },
             connected: {
-
+                on: {
+                    FAUCET: {
+                        target: 'faucetPending',
+                    },
+                },
+            },
+            faucetPending: {
+                invoke: {
+                    id: 'faucet-pending',
+                    src: (context, event) => async () => faucetDAI(event),
+                    onDone: {
+                        target: 'faucetCompleted',
+                        actions: assign({ wallet: (context, event) => {
+                            if (!context.wallet) return context.wallet;
+                            const updatedWallet = context.wallet;
+                            updatedWallet.daiAmount = event.data.daiAmount;
+                            return updatedWallet;
+                        } }),
+                    },
+                },  
+            },
+            faucetCompleted: {
+                invoke: {
+                    id: 'faucet-completed',
+                    src: () => () => console.log('completed'),
+                },
             },
         },
     },
