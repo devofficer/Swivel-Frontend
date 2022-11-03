@@ -13,7 +13,10 @@ export class WalletConnect extends LitElement {
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
     render () {
         return html`
-            <swivel-button text="Connect MetaMask" @click=${ this._connect }></swivel-button>
+            <swivel-button 
+                text="${ !this.wallet.state?.connected ? 'Connect MetaMask' : 'Disconnect' }" 
+                @click=${ this._connect }
+            ></swivel-button>
         `;
     }
 }

@@ -5,6 +5,7 @@ import { WalletContext, WalletEvent, WalletTypeState } from './types';
 const initialValue = 'unconnected';
 const initialContext: WalletContext = {
     wallet: {
+        connected: false,
         address: '',
         ethAmount: 0,
         daiAmount: 0,
@@ -27,7 +28,7 @@ const walletMachine = createMachine<WalletContext, WalletEvent, WalletTypeState>
             connecting: {
                 invoke: {
                     id: 'connect-wallet',
-                    src: (context, event) => connectWallet,
+                    src: () => connectWallet,
                     onDone: {
                         target: 'connected',
                         // eslint-disable-next-line @typescript-eslint/no-unsafe-return
@@ -48,6 +49,8 @@ const walletMachine = createMachine<WalletContext, WalletEvent, WalletTypeState>
     //     },
     // },
 );
+
+console.log('machine creating');
 
 const walletService = interpret(walletMachine).start();
 

@@ -1,4 +1,5 @@
 interface IWallet {
+    connected: boolean;
     address: string;
     ethAmount: number;
     daiAmount: number;
