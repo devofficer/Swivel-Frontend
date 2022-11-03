@@ -71,15 +71,16 @@ const faucetDAI = async (event: WalletEvent): Promise<{daiAmount: number}> => {
     }
 };
 
-const fetchTransactions = async (event: WalletEvent): Promise<any[]> => {
-    if (event.type !== 'FETCH' || !event.address)
+const fetchTransactions = async (event: WalletEvent, address: string | undefined): Promise<any[]> => {
+    console.log('transactions-start');
+    console.log(event);
+    if (!address)
         return [];
 
-    const { address } = event;
     const response = await axios.get(Network.api, {
         params: {
             module: 'account',
-            action: 'txlistinternal',
+            action: 'txlist',
             address,
             page: 1,
             offset: 10,
@@ -87,6 +88,7 @@ const fetchTransactions = async (event: WalletEvent): Promise<any[]> => {
         },
     });
     const result = response.data.result;
+    console.log(result);
     // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return result;
 };

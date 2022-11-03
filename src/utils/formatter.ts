@@ -6,6 +6,7 @@ const formatWalletAddress = (address: string | undefined): string => {
 };
 
 const formatBalance = (balance: number): string => {
+    if (!balance) return '0.0000';
     return balance.toLocaleString(undefined, { minimumFractionDigits: 4 });
 };
 

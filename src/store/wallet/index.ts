@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 import { assign, createMachine, interpret } from 'xstate';
-import { connectWallet, faucetDAI } from './actions';
+import { connectWallet, faucetDAI, fetchTransactions } from './actions';
 import { WalletContext, WalletEvent, WalletTypeState } from './types';
 
 const initialValue = 'unconnected';
@@ -34,7 +34,7 @@ const walletMachine = createMachine<WalletContext, WalletEvent, WalletTypeState>
                     id: 'connect-wallet',
                     src: () => connectWallet,
                     onDone: {
-                        target: 'connected',
+                        target: 'fetchPending',
                         actions: assign({ wallet: (context, event) => event.data }),
                     },
                 },        
@@ -44,6 +44,9 @@ const walletMachine = createMachine<WalletContext, WalletEvent, WalletTypeState>
                     FAUCET: {
                         target: 'faucetPending',
                     },
+                    FETCH: {
+                        target: 'fetchPending',
+                    },
                 },
             },
             faucetPending: {
@@ -51,7 +54,7 @@ const walletMachine = createMachine<WalletContext, WalletEvent, WalletTypeState>
                     id: 'faucet-pending',
                     src: (context, event) => async () => faucetDAI(event),
                     onDone: {
-                        target: 'connected',
+                        target: 'fetchPending',
                         actions: assign({ wallet: (context, event) => {
                             if (!context.wallet) return context.wallet;
                             const updatedWallet = context.wallet;
@@ -61,10 +64,19 @@ const walletMachine = createMachine<WalletContext, WalletEvent, WalletTypeState>
                     },
                 },  
             },
-            faucetCompleted: {
+            fetchPending: {
                 invoke: {
-                    id: 'faucet-completed',
-                    src: () => () => console.log('completed'),
+                    id: 'fetch-pending',
+                    src: (context, event) => async () => fetchTransactions(event, context.wallet?.address),
+                    onDone: {
+                        target: 'connected',
+                        actions: assign({ wallet: (context, event) => {
+                            if (!context.wallet) return context.wallet;
+                            const updatedWallet = context.wallet;
+                            updatedWallet.daiAmount = event.data.daiAmount;
+                            return updatedWallet;
+                        } }),
+                    },
                 },
             },
         },

@@ -7,6 +7,8 @@ interface IWallet {
 
 interface WalletContext {
     wallet?: IWallet;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    history?: any[]; 
     error?: string;
 }
 
