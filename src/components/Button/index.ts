@@ -1,4 +1,4 @@
-import { css } from 'lit';
+import { css, nothing } from 'lit';
 import { customElement, html, LitElement, property } from 'lit-element';
 
 @customElement('swivel-button')
@@ -35,8 +35,6 @@ export class SwivelButton extends LitElement {
     
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
     render () {
-        return this.fullWidth 
-            ? html`<button class="full-width">${ this.text }</button>` 
-            : html`<button>${ this.text }</button>`;
+        return html`<button class="${ this.fullWidth ? 'full-width' : nothing }">${ this.text }</button>`;
     }
 }
