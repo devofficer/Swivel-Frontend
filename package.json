@@ -55,7 +55,7 @@
     "typescript": "^4.6.2"
   },
   "dependencies": {
-    "ethers": "^5.5.4",
+    "ethers": "^5.7.2",
     "lit": "^2.4.0",
     "xstate": "^4.34.0"
   }
