@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import axios from 'axios';
 import { ethers } from 'ethers';
 import ERC20ABI from '../../abi/erc20.abi';
 import { Network } from '../../constants';
@@ -46,8 +47,6 @@ const connectWallet = async (): Promise<IWallet> => {
 };
 
 const faucetDAI = async (event: WalletEvent): Promise<{daiAmount: number}> => {
-
-    console.log('faucet-start');
     if (event.type !== 'FAUCET' || !event.address || !event.amount)
         return { daiAmount: 0 };
         
@@ -72,5 +71,25 @@ const faucetDAI = async (event: WalletEvent): Promise<{daiAmount: number}> => {
     }
 };
 
-export { connectWallet, faucetDAI };
+const fetchTransactions = async (event: WalletEvent): Promise<any[]> => {
+    if (event.type !== 'FETCH' || !event.address)
+        return [];
+
+    const { address } = event;
+    const response = await axios.get(Network.api, {
+        params: {
+            module: 'account',
+            action: 'txlistinternal',
+            address,
+            page: 1,
+            offset: 10,
+            sort: 'desc',
+        },
+    });
+    const result = response.data.result;
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+    return result;
+};
+
+export { connectWallet, faucetDAI, fetchTransactions };
 
