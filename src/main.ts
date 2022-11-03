@@ -17,6 +17,7 @@ export class App extends LitElement {
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
     render () {
         return html`
+            ${ this.app.walletInfo?.ethAmount }
             <swivel-navbar></swivel-navbar>
             <swivel-viewport></swivel-viewport>
         `;

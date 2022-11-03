@@ -17,10 +17,14 @@ const walletMachine = createMachine<WalletContext, WalletEvent, WalletTypeState>
         context: initialContext,
         states: {
             unconnected: {
-                
+                on: {
+                    CONNECT: {
+                        target: 'connecting',
+                    },
+                },
             },
             connecting: {
-                
+                            
             },
             connected: {
 
@@ -34,8 +38,6 @@ const walletMachine = createMachine<WalletContext, WalletEvent, WalletTypeState>
     },
 );
 
-const walletService = interpret(walletMachine).start();
-
-console.log(walletService);
+const walletService = interpret(walletMachine);
 
 export { walletMachine, walletService };
