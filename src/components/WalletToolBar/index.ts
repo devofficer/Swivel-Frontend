@@ -37,6 +37,9 @@ export class WalletToolBar extends LitElement {
 
         .address {
             cursor: pointer;
+            background: #ccc;
+            padding: 5px 8px;
+            border-radius: 4px;
         }
     `;
 
