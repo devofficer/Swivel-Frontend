@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { ReactiveController, ReactiveControllerHost } from 'lit';
 import { walletMachine, walletService } from '../../store/wallet';
@@ -38,6 +39,5 @@ export default class WalletController implements ReactiveController {
 
     hostDisconnected () {
         this._walletStore.service.stop();
-        console.log('disconnected');
     }
 }

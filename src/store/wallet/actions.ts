@@ -72,8 +72,6 @@ const faucetDAI = async (event: WalletEvent): Promise<{daiAmount: number}> => {
 };
 
 const fetchTransactions = async (event: WalletEvent, address: string | undefined): Promise<any[]> => {
-    console.log(address);
-
     if (!address)
         return [];
 

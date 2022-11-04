@@ -59,7 +59,6 @@ export class WalletToolBar extends LitElement {
 
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
     render () {
-        console.log(this.wallet.state?.connected);
         return html`
             <div class="container">
                 ${ this.wallet.state?.connected 

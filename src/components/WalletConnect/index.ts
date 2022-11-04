@@ -14,7 +14,10 @@ export class WalletConnect extends LitElement {
     `;
 
     private _connect = (): void => {
-        this.wallet.send('CONNECT');
+        if (this.wallet.status === 'connected')
+            this.wallet.send('DISCONNECT');
+        else 
+            this.wallet.send('CONNECT');
     };
 
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types

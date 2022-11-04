@@ -1,3 +1,5 @@
+import { ethers } from 'ethers';
+
 const formatWalletAddress = (address: string | undefined): string => {
     if (!address) return '';
     const length = address.length;
@@ -10,4 +12,9 @@ const formatBalance = (balance: number): string => {
     return balance.toLocaleString(undefined, { minimumFractionDigits: 4 });
 };
 
-export { formatWalletAddress, formatBalance };
+const formatEther = (balance: string): string => {
+    const etherBalance = ethers.utils.formatEther(Number(balance));
+    return formatBalance(Number(etherBalance));
+};
+
+export { formatWalletAddress, formatBalance, formatEther };

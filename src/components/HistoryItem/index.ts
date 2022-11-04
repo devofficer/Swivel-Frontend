@@ -1,5 +1,6 @@
 import { css } from 'lit';
 import { customElement, html, LitElement, property } from 'lit-element';
+import { formatWalletAddress } from '../../utils/formatter';
 
 @customElement('swivel-history-item')
 export class Content extends LitElement {
@@ -31,17 +32,17 @@ export class Content extends LitElement {
     
     @property({ type: String }) symbol = 'ETH';
 
-    @property({ type: String }) date = 'Monday';
+    @property({ type: String }) date = '';
 
-    @property({ type: String }) from = '0x234234';
+    @property({ type: String }) from = '';
 
-    @property({ type: String }) to = '0x234234234';
+    @property({ type: String }) to = '';
 
     @property({ type: Number }) amount = 0.0;
 
     @property({ type: Number }) fee = 0.0;
 
-    @property({ type: String }) etherscan = '0x23423423423423';
+    @property({ type: String }) etherscan = '';
 
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
     render () {
@@ -71,7 +72,11 @@ export class Content extends LitElement {
                 </div>
                 <div class='line'>
                     <span class="label">Etherscan:</span>
-                    <span class="value"><a href="https://goerli.etherscan.io/tx/${ this.etherscan }">${ this.etherscan }</a></span>
+                    <span class="value">
+                        <a href="https://goerli.etherscan.io/tx/${ this.etherscan }">
+                            ${ formatWalletAddress(this.etherscan) }
+                        </a>
+                    </span>
                 </div>
             </div>
         `;

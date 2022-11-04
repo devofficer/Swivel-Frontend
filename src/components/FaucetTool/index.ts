@@ -60,7 +60,6 @@ export class FaucetTool extends LitElement {
 
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
     render () {
-        console.log(this.wallet.status == 'unconnected');
         return html`
             <div class="container">
                 <div class="faucet-input-container">

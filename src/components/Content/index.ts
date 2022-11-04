@@ -1,9 +1,9 @@
-import { TemplateResult } from 'lit';
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
-import { css } from 'lit';
+import { css, TemplateResult } from 'lit';
 import { customElement, html, LitElement } from 'lit-element';
 import WalletController from '../../controllers/wallet';
+import { formatEther } from '../../utils/formatter';
 import '../Button';
 import '../HistoryItem';
 
@@ -56,8 +56,8 @@ export class Content extends LitElement {
                     date="${ new Date(parseInt(item.timeStamp)) }"
                     from="${ item.from }"
                     to="${ item.to }"
-                    amount="${ item.value }"
-                    fee="${ item.gasUsed }"
+                    amount="${ formatEther(item.value) }"
+                    fee="${ formatEther(item.gasUsed) }"
                     etherscan="${ item.hash }"
                 />
             `) }

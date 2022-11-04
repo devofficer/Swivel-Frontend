@@ -49,6 +49,13 @@ const walletMachine = createMachine<WalletContext, WalletEvent, WalletTypeState>
                     FETCH: {
                         target: 'fetchPending',
                     },
+                    DISCONNECT: {
+                        target: 'unconnected',
+                        actions: assign({ 
+                            wallet: (context, event) => initialContext.wallet,
+                            history: (context, event) => initialContext.history,
+                        }),
+                    },
                 },
             },
             faucetPending: {
@@ -81,16 +88,8 @@ const walletMachine = createMachine<WalletContext, WalletEvent, WalletTypeState>
             },
         },
     },
-    // {
-    //     actions: {
-    //         onConnected: (context, event) => {
-    //             console.log(event.data);
-    //         }
-    //     },
-    // },
 );
 
-console.log('machine creating');
 
 const walletService = interpret(walletMachine).start();
 
